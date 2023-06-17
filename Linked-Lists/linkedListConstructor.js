@@ -5,7 +5,6 @@ class Node {
 		this.next = null;
 	}
 }
-
 class LinkedList {
 	constructor(value) {
 		const newNode = new Node(value);
@@ -41,8 +40,45 @@ class LinkedList {
 	getLength() {
 		console.log("Length: " + this.length);
 	}
-}
 
+	push(value) {
+		const newNode = new Node(value);
+		if (!this.head) {
+			this.head = newNode;
+			this.tail = newNode;
+		} else {
+			this.tail.next = newNode;
+			this.tail = newNode;
+		}
+		this.length++;
+		return this;
+	}
+
+	pop() {
+		//empty list
+		if (!this.head) return undefined;
+
+		//2 or more
+		let temp = this.head;
+		let pre = this.head;
+
+		while (temp.next) {
+			pre = temp;
+			temp = temp.next;
+		}
+
+		this.tail = pre;
+		this.tail.next = null;
+		this.length--;
+		//one item in the list will become zero after decrementing the length
+		if (this.length === 0) {
+			this.head = null;
+			this.tail = null;
+		}
+		//return the removed item
+		return temp;
+	}
+}
 function test() {
 	let myLinkedList = new LinkedList(4);
 
